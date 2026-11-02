@@ -2,6 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- ================================================================================
+     SQUARE PAYMENT LINKS: THE ONLY PLACE TO EDIT WHEN PAYMENTS GO LIVE
+     1. In Square: Payments > Payment Links, create the two links in
+        "first-class-square-payment-link-spec.md".
+     2. Paste each link between the quotes below and save. Nothing else changes.
+     A link left empty ("") keeps the preview behavior for that payment.
+     Never put a Square access token or any secret key here. Links only.
+     ================================================================================ -->
+<script>
+window.FC_SQUARE = {
+  // LINK 1: "First Class Rental Cars: Rental Payment" (Collect a payment, buyer sets the amount)
+  RENTAL_PAYMENT_LINK: "https://square.link/u/TlyjCy6C",
+  // LINK 2: "First Class Rental Cars: Mercedes-AMG GLE 53 Refundable Deposit" (fixed $800)
+  GLE53_DEPOSIT_LINK: "https://square.link/u/x6Dk7NJ4"
+};
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Raleigh 24-Hour Luxury Car Rental | Mercedes-AMG GLE 53, GLC 300, Range Rover Sport &amp; BMW X4 | First Class Rental Cars</title>
 <meta name="description" content="Rent a Mercedes-AMG GLE 53 Coupe, Mercedes-Benz GLC 300, Land Rover Range Rover Sport or BMW X4 in Raleigh, NC. 24-hour luxury car rental from $199/day. Book online or call (929) 704-2002.">
@@ -259,6 +275,17 @@ html{overflow-x:clip}
 .bk-btn:hover{transform:translateY(-1px)}
 .bk-btn--primary{background:var(--gold-grad);color:#171106;border-color:transparent;box-shadow:0 12px 32px rgba(201,162,39,.25)}
 .bk-note{color:var(--muted-2);font-size:.82rem;line-height:1.6;margin-top:16px}
+/* ---- Square payment hand-off (v3.10) ---- */
+.bk-paybox{margin-top:18px;border:1px solid var(--line);border-radius:18px;padding:20px 22px;background:#0f0e0c}
+.bk-paybox h4{margin:0 0 6px;font-size:1rem;letter-spacing:.02em}
+.bk-paybox .bk-payrow{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:14px 0}
+.bk-paybox .bk-payrow:first-of-type{border-top:0}
+.bk-paybox .lbl{font-weight:800}
+.bk-paybox .amt{color:var(--gold-2);font-weight:800;margin-left:6px}
+.bk-paybox .how{flex-basis:100%;color:var(--muted);font-size:.84rem;line-height:1.55}
+.bk-paybox .copy{background:none;border:1px solid var(--line);color:var(--white);border-radius:999px;padding:4px 10px;font:inherit;font-size:.78rem;cursor:pointer;margin-left:6px}
+.bk-paybox a.bk-btn{text-decoration:none;display:inline-flex;align-items:center}
+
 .bk-pass{border:1px dashed rgba(252,246,186,.5);border-radius:18px;padding:28px;background:linear-gradient(180deg,#151310,#0c0b09)}
 .bk-pass__ref{font-family:var(--font-d);font-size:1.7rem;letter-spacing:.14em;color:var(--gold-2)}
 .bk-pass__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 22px;margin-top:18px}
@@ -335,19 +362,16 @@ html{overflow-x:clip}
       <p class="hero__sub">Luxury and premium car rentals in Raleigh, North Carolina. Mercedes-Benz and Range Rover — Miami coming soon.</p>
       <p class="hero__brand">Drive Luxury. Live the Experience.</p>
       <div class="cta">
-        <!-- TODO: replace href with the Google review short link once the Google Business Profile is verified -->
-        <a class="btn btn--primary" href="#google-review-link-pending" data-pending="true">
-          <span class="stars" aria-hidden="true">
-            <svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg>
-          </span>
-          <span>Review us on Google</span>
+        <a class="btn btn--primary" href="#book">
+          <span>Reserve Online</span>
+          <span class="btn__sub" style="color:#4a3805">Pick your dates and pay securely</span>
         </a>
         <a class="btn btn--call" href="tel:+19297042002" aria-label="Call (929) 704-2002 to book">
           <span class="lead"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg><span>Call <span class="num">(929) 704-2002</span></span></span>
           <span class="btn__sub">Open 24 hours, every day</span>
         </a>
         <a class="btn btn--ghost" href="https://www.instagram.com/firstclassrentcars" target="_blank" rel="noopener noreferrer">
-          <span>Message to Reserve</span>
+          <span>Message Us</span>
           <span class="btn__sub">@firstclassrentcars on Instagram</span>
         </a>
       </div>
@@ -512,8 +536,8 @@ html{overflow-x:clip}
         </button>
         <button class="step" type="button" data-step="1">
           <div class="step__num">02</div>
-          <div class="step__name">Message to reserve</div>
-          <div class="step__hint">Send your dates on Instagram.</div>
+          <div class="step__name">Reserve online</div>
+          <div class="step__hint">Pick your dates and pay securely.</div>
         </button>
         <button class="step" type="button" data-step="2">
           <div class="step__num">03</div>
@@ -610,7 +634,7 @@ html{overflow-x:clip}
           <p class="bk-sub">Choose how you would like to pay. All figures are set by the owner and confirmed at booking.</p>
           <div class="bk-toggle" role="group" aria-label="Payment choice">
             <button type="button" id="bkPayFull" class="sel"><div class="t">Pay in full</div><div class="d">The full rental total today. Nothing due at pickup.</div></button>
-            <button type="button" id="bkPayDeposit"><div class="t">Reserve with a deposit</div><div class="d">A refundable deposit hold today, and the full rental total at pickup.</div></button>
+            <button type="button" id="bkPayDeposit"><div class="t">Reserve with a deposit</div><div class="d">A refundable deposit today, refunded after return, and the full rental total at pickup.</div></button>
           </div>
           <div class="bk-sum" id="bkSummary"></div>
           <div class="bk-grid">
@@ -619,7 +643,7 @@ html{overflow-x:clip}
             <div class="bk-field"><label for="bkCardExp">Expiry</label><input type="text" id="bkCardExp" placeholder="MM / YY" autocomplete="cc-exp"></div>
             <div class="bk-field"><label for="bkCardCvc">Security code</label><input type="text" id="bkCardCvc" inputmode="numeric" placeholder="CVC" autocomplete="cc-csc"></div>
           </div>
-          <p class="bk-note">Demonstration checkout — nothing is charged or sent. Card fields clear as soon as your reservation is confirmed. Prefer to pay at pickup? Call or text <a href="tel:+19297042002">(929) 704-2002</a> and we will hold your vehicle.</p>
+          <p class="bk-note" id="bkPayNote">Demonstration checkout — nothing is charged or sent. Card fields clear as soon as your reservation is confirmed. Prefer to pay at pickup? Call or text <a href="tel:+19297042002">(929) 704-2002</a> and we will hold your vehicle.</p>
           <div class="bk-nav"><button class="bk-btn" type="button" data-bk-back>Back</button><button class="bk-btn bk-btn--primary" type="button" id="bkConfirm">Confirm reservation</button></div>
         </div>
 
@@ -638,6 +662,7 @@ html{overflow-x:clip}
               <div><div class="k">Balance at pickup</div><div class="v" id="bkPassBal">—</div></div>
             </div>
           </div>
+          <div class="bk-paybox" id="bkPayBox" hidden></div>
           <p class="bk-note">Need to change or cancel? Call or text <a href="tel:+19297042002">(929) 704-2002</a> or email <a href="mailto:book@firstclassrentalcars.net">book@firstclassrentalcars.net</a> with your booking reference and we will take care of it. Questions about your trip? Message <a href="https://www.instagram.com/firstclassrentcars" target="_blank" rel="noopener noreferrer" style="color:var(--gold-2);font-weight:700">@firstclassrentcars</a> any time — DM to Book, 24/7.</p>
         </div>
       </div>
@@ -647,7 +672,7 @@ html{overflow-x:clip}
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- REVIEW -->
-  <section class="section review-band" aria-labelledby="review-title">
+  <section class="section review-band" aria-labelledby="review-title" hidden>
     <div class="wrap reveal">
       <span class="eyebrow">Guest Reviews</span>
       <h2 class="section-title" id="review-title">Driven us before?<br><span class="gold-text">Rate your ride.</span></h2>
@@ -685,17 +710,17 @@ html{overflow-x:clip}
         </div>
         <div class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">How do I reserve a vehicle?<span class="plus" aria-hidden="true">+</span></button>
-          <div class="faq__a"><p>Message us on Instagram at <a href="https://www.instagram.com/firstclassrentcars" target="_blank" rel="noopener noreferrer">@firstclassrentcars</a> with the vehicle you want and your dates, and we will confirm availability.</p></div>
+          <div class="faq__a"><p>Use <a href="#book">Reserve Online</a> on this page: choose your vehicle and dates, add your details and pay securely. Prefer to talk? Call <a href="tel:+19297042002">(929) 704-2002</a> or message <a href="https://www.instagram.com/firstclassrentcars" target="_blank" rel="noopener noreferrer">@firstclassrentcars</a> on Instagram.</p></div>
         </div>
         <div class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">What are the rates and deposit?<span class="plus" aria-hidden="true">+</span></button>
-          <div class="faq__a"><p>Daily rates: Mercedes-AMG GLE 53 Coupe $450/day, GLC 300 $350/day, BMW X4 $275/day, Range Rover Sport $199/day. Deposit: $800 refundable hold on the Mercedes-AMG GLE 53 Coupe; for other vehicles the deposit is set by the owner and confirmed at booking — message us on Instagram with your dates.</p></div>
+          <div class="faq__a"><p>Daily rates: Mercedes-AMG GLE 53 Coupe $450/day, GLC 300 $350/day, BMW X4 $275/day, Range Rover Sport $199/day. Deposit: $800 refundable deposit on the Mercedes-AMG GLE 53 Coupe, charged at booking and refunded after return; for other vehicles the deposit is set by the owner and confirmed at booking — message us on Instagram with your dates.</p></div>
         </div>
         <div class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">What do I need to rent?<span class="plus" aria-hidden="true">+</span></button>
           <div class="faq__a"><p>A valid driver’s license and minimum age 21 are required. Mileage and delivery terms are confirmed at booking.</p></div>
         </div>
-        <div class="faq__item">
+        <div class="faq__item" hidden>
           <button class="faq__q" type="button" aria-expanded="false">How do I leave a review?<span class="plus" aria-hidden="true">+</span></button>
           <div class="faq__a"><p>Tap the “Review us on Google” button at the top of this page, or tap your NFC card again after your rental. Every review helps the next guest find us.</p></div>
         </div>
@@ -710,11 +735,11 @@ html{overflow-x:clip}
     <div class="wrap reveal">
       <svg class="monogram" viewBox="0 0 1080 1080" role="img" aria-label="First Class Rental Cars crown monogram" xmlns="http://www.w3.org/2000/svg" data-logo="C4" style="width:76px"><polygon points="390.0,177.9 465.0,222.3 540.0,140.0 615.0,222.3 690.0,177.9 690.0,290.0 390.0,290.0" fill="url(#goldGrad)"></polygon><rect x="390.0" y="304.5" width="300.0" height="18.5" fill="url(#goldGrad)"></rect><path d="M272.11122913505307 830.0V522.0H513.3230349013656V589.5333232169954H359.2933232169954V830.0ZM353.072564491654 724.4764491654021V656.9431259484066H495.0099544764795V724.4764491654021ZM701.8634597875568 836.0842185128984Q665.4496206373293 836.0842185128984 634.4675113808801 824.4242185128983Q603.485402124431 812.7642185128983 580.7267526555387 791.2724886191199Q557.9681031866464 769.7807587253415 545.3446433990896 740.505569044006Q532.7211836115326 711.2303793626708 532.7211836115326 676.0Q532.7211836115326 640.7696206373292 545.3446433990896 611.494430955994Q557.9681031866464 582.2192412746585 580.7950227617603 560.7275113808801Q603.6219423368741 539.2357814871017 634.6040515933232 527.5757814871017Q665.5861608497723 515.9157814871016 702.0 515.9157814871016Q744.589195751138 515.9157814871016 778.2720637329287 530.7317298937785Q811.9549317147192 545.5476783004552 834.2887708649469 573.8291957511381L778.969286798179 624.0202427921092Q764.2369650986343 606.4506221547799 746.2350227617603 597.127162367223Q728.2330804248862 587.8037025796662 706.3242185128984 587.8037025796662Q687.3134142640364 587.8037025796662 671.6556904400607 594.0394840667678Q655.997966616085 600.2752655538695 644.6264036418817 611.9654779969651Q633.2548406676783 623.6556904400607 626.950789074355 639.9355235204855Q620.6467374810319 656.2153566009105 620.6467374810319 676.0Q620.6467374810319 695.7846433990895 626.950789074355 712.0644764795145Q633.2548406676783 728.3443095599393 644.6264036418817 740.0345220030349Q655.997966616085 751.7247344461305 671.6556904400607 757.9605159332322Q687.3134142640364 764.1962974203338 706.3242185128984 764.1962974203338Q728.2330804248862 764.1962974203338 746.2350227617603 754.872837632777Q764.2369650986343 745.5493778452201 778.969286798179 727.8432169954476L834.2887708649469 778.0342640364188Q811.9549317147192 806.0123216995447 778.2720637329287 821.0482701062215Q744.589195751138 836.0842185128984 701.8634597875568 836.0842185128984Z" fill="url(#goldGrad)"></path></svg>
       <h2 class="section-title">Your car is <span class="gold-text">waiting.</span></h2>
-      <p class="section-lead" style="max-width:520px;margin-left:auto;margin-right:auto">Message us today and drive first class on your next trip.</p>
+      <p class="section-lead" style="max-width:520px;margin-left:auto;margin-right:auto">Reserve online today and drive first class on your next trip.</p>
       <div class="cta">
-        <a class="btn btn--primary" href="https://www.instagram.com/firstclassrentcars" target="_blank" rel="noopener noreferrer">
-          <span>Message to Reserve</span>
-          <span class="btn__sub" style="color:#4a3805">@firstclassrentcars</span>
+        <a class="btn btn--primary" href="#book">
+          <span>Reserve Online</span>
+          <span class="btn__sub" style="color:#4a3805">Pick your dates and pay securely</span>
         </a>
       </div>
     </div>
@@ -850,7 +875,7 @@ html{overflow-x:clip}
   /* Steps */
   var STEP_TEXT = [
     "Browse <a href=\"#fleet\">the fleet</a> above and pick the vehicle and color that fit your occasion.",
-    "Send a message on Instagram to <a href=\"https://www.instagram.com/firstclassrentcars\" target=\"_blank\" rel=\"noopener noreferrer\">@firstclassrentcars</a> with the vehicle you want and your dates, and we will confirm availability.",
+    "Go to <a href=\"#book\">Reserve Online</a>, pick your dates, add your details and pay securely. Questions? Call <a href=\"tel:+19297042002\">(929) 704-2002</a>.",
     "Pick up your vehicle in Raleigh, North Carolina — then drive first class and arrive first class."
   ];
   var steps = document.querySelectorAll(".step");
@@ -982,6 +1007,53 @@ html{overflow-x:clip}
        the FULL rental total at pickup. The hold is separate from the rental and is never subtracted from it. */
     return {days:d, total:total, full:full, due:(full ? total : dep), bal:(full ? 0 : total), car:car, dep:dep};
   }
+
+  /* ---- Square payment hand-off (v3.10): live only when a link is set in FC_SQUARE at the top of this file ---- */
+  var SQ = window.FC_SQUARE || {};
+  function sqOk(u){ return typeof u === "string" && /^https:\/\/(square\.link|checkout\.square\.site|[a-z0-9-]+\.square\.site)\//i.test(u.trim()); }
+  var SQ_RENTAL = sqOk(SQ.RENTAL_PAYMENT_LINK) ? SQ.RENTAL_PAYMENT_LINK.trim() : "";
+  var SQ_DEP = sqOk(SQ.GLE53_DEPOSIT_LINK) ? SQ.GLE53_DEPOSIT_LINK.trim() : "";
+  var SQ_LIVE = !!SQ_RENTAL;
+  if (SQ_LIVE){
+    var cg = $("bkCard") && $("bkCard").closest(".bk-grid"); if (cg) { cg.hidden = true; cg.style.display = "none"; }
+    var pn = $("bkPayNote");
+    if (pn) pn.innerHTML = "You'll pay securely on Square's checkout page, in a new tab, right after you confirm. Your booking reference goes with your payment so we can match it to your reservation. Prefer to pay at pickup? Call or text <a href=\"tel:+19297042002\">(929) 704-2002</a> and we will hold your vehicle.";
+  }
+  function payRow(label, amount, link, ref, how){
+    var amt = (amount === null) ? "" : "<span class=\"amt\">" + money(amount) + "</span>";
+    var btn = link ? "<a class=\"bk-btn bk-btn--primary\" href=\"" + link + "\" target=\"_blank\" rel=\"noopener noreferrer\">Pay on Square</a>"
+                   : "<a class=\"bk-btn\" href=\"tel:+19297042002\">Call (929) 704-2002</a>";
+    return "<div class=\"bk-payrow\"><div><span class=\"lbl\">" + label + "</span>" + amt + "</div>" + btn + "<div class=\"how\">" + how + "</div></div>";
+  }
+  function renderPayBox(ref, t, car){
+    var box = $("bkPayBox"); if (!box) return;
+    if (!SQ_LIVE || !t){ box.hidden = true; box.innerHTML = ""; return; }
+    var rows = [], refTxt = "<b>" + ref + "</b> <button type=\"button\" class=\"copy\" data-copy=\"" + ref + "\">Copy</button>";
+    var trip = car.name + ", " + $("bkPassPickup").textContent + " to " + $("bkPassReturn").textContent;
+    var tripTxt = " In <b>Vehicle and dates</b>, paste: <b>" + trip + "</b> <button type=\"button\" class=\"copy\" data-copy=\"" + trip.replace(/"/g, "") + "\">Copy</button>";
+    var depLink = (car.id === "gle53") ? SQ_DEP : "";
+    if (t.full){
+      rows.push(payRow("Rental total", t.total, SQ_RENTAL, ref,
+        "On Square's page, enter exactly <b>" + money(t.total) + "</b> <button type=\"button\" class=\"copy\" data-copy=\"" + t.total + "\">Copy amount</button> and your booking reference " + refTxt + "." + tripTxt));
+    }
+    if (t.dep !== null && t.dep > 0){
+      rows.push(payRow("Refundable deposit", t.dep, depLink || null, ref, depLink
+        ? "Fixed at " + money(t.dep) + ". Add your booking reference " + refTxt + "." + tripTxt + " Refunded after the vehicle is returned, per our rental terms."
+        : "We'll take the " + money(t.dep) + " refundable deposit by phone. Have your booking reference ready: " + refTxt + "."));
+    } else if (!t.full){
+      rows.push(payRow("Deposit", null, null, ref, "We'll confirm your deposit by phone. Have your booking reference ready: " + refTxt + "."));
+    }
+    if (!t.full) rows.push("<div class=\"bk-payrow\"><div class=\"how\">The full rental total of <b>" + money(t.total) + "</b> is due at pickup.</div></div>");
+    box.innerHTML = "<h4>Complete your payment</h4><p class=\"bk-sub\" style=\"margin:0 0 6px\">Each button opens Square's secure checkout in a new tab. We confirm your reservation by text or email once your payment comes through.</p>" + rows.join("");
+    box.hidden = false;
+  }
+  document.addEventListener("click", function(e){
+    var c = e.target.closest && e.target.closest("[data-copy]"); if (!c) return;
+    var v = c.getAttribute("data-copy");
+    var was = c.textContent; if (navigator.clipboard) navigator.clipboard.writeText(v).then(function(){ c.textContent = "Copied"; setTimeout(function(){ c.textContent = was; }, 1600); });
+  });
+  if (location.hash === "#paid" && window.__fcToast) window.__fcToast("Payment received. Thank you! Square has emailed your receipt.");
+
   function renderSummary(){
     var t = totals(), box = $("bkSummary");
     if (!t){
@@ -991,8 +1063,8 @@ html{overflow-x:clip}
     }
     box.innerHTML =
       "<div class=\"bk-sum__row\"><span>" + t.car.name + " — " + t.days + (t.days === 1 ? " day" : " days") + " × " + money(t.car.rate) + "</span><span>" + money(t.total) + "</span></div>" +
-      "<div class=\"bk-sum__row\"><span>Refundable deposit hold (separate from the rental total, never charged to it)</span><span>" + (t.dep === null ? "Set by owner — confirmed at booking" : money(t.dep)) + "</span></div>" +
-      "<div class=\"bk-sum__row total\"><span>" + (t.full ? "Due today (rental total)" : "Due today (refundable deposit hold)") + "</span><span class=\"gold\">" + (t.due === null ? "Confirmed at booking" : money(t.due)) + "</span></div>" +
+      "<div class=\"bk-sum__row\"><span>" + (SQ_LIVE && SQ_DEP && t.dep && t.car && t.car.id === "gle53" ? "Refundable deposit (separate from the rental total; charged today, refunded after return)" : "Refundable deposit (separate from the rental total)") + "</span><span>" + (t.dep === null ? "Set by owner — confirmed at booking" : money(t.dep)) + "</span></div>" +
+      "<div class=\"bk-sum__row total\"><span>" + (t.full ? "Due today (rental total)" : "Due today (refundable deposit)") + "</span><span class=\"gold\">" + (t.due === null ? "Confirmed at booking" : money(t.due)) + "</span></div>" +
       "<div class=\"bk-sum__row\"><span>" + (t.full ? "Rental balance at pickup" : "Balance at pickup (full rental total)") + "</span><span>" + money(t.bal) + "</span></div>";
   }
   function renderDays(){
@@ -1045,9 +1117,11 @@ html{overflow-x:clip}
     $("bkPassName").textContent = $("bkName").value.trim() || "—";
     $("bkPassPickup").textContent = fmtDate($("bkStart").value, $("bkPickupTime").value);
     $("bkPassReturn").textContent = fmtDate($("bkEnd").value, $("bkReturnTime").value);
-    $("bkPassDue").textContent = !t ? "Set by owner" : (t.due === null ? "Confirmed at booking" : money(t.due) + (t.full ? " (rental)" : " (refundable hold)"));
+    $("bkPassDue").textContent = !t ? "Set by owner" : (t.due === null ? "Confirmed at booking" : money(t.due) + (t.full ? " (rental)" : " (refundable deposit)"));
     $("bkPassBal").textContent = !t ? "Set by owner" : money(t.bal) + (t.full ? "" : " (full rental)");
     ["bkCard","bkCardName","bkCardExp","bkCardCvc"].forEach(function(id){ $(id).value = ""; });
+    if (SQ_LIVE && SQ_DEP && t && car.id === "gle53" && t.dep) $("bkPassDue").textContent = t.full ? (money(t.total) + " rental + " + money(t.dep) + " refundable deposit") : (money(t.dep) + " (refundable deposit)");
+    renderPayBox(ref, t, car);
     go(5);
   });
 
