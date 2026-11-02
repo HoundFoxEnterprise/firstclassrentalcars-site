@@ -285,6 +285,8 @@ html{overflow-x:clip}
 .bk-paybox .how{flex-basis:100%;color:var(--muted);font-size:.84rem;line-height:1.55}
 .bk-paybox .copy{background:none;border:1px solid var(--line);color:var(--white);border-radius:999px;padding:4px 10px;font:inherit;font-size:.78rem;cursor:pointer;margin-left:6px}
 .bk-paybox a.bk-btn{text-decoration:none;display:inline-flex;align-items:center}
+.bk-paybox .bk-paysteps{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;margin:10px 0 0;padding:12px 14px;border:1px solid rgba(201,165,92,.5);border-radius:12px;background:rgba(201,165,92,.08);font-weight:800;font-size:.95rem;color:var(--white)}
+.bk-paybox .bk-paysteps .copy{font-weight:800;border-color:rgba(201,165,92,.7)}
 
 .bk-pass{border:1px dashed rgba(252,246,186,.5);border-radius:18px;padding:28px;background:linear-gradient(180deg,#151310,#0c0b09)}
 .bk-pass__ref{font-family:var(--font-d);font-size:1.7rem;letter-spacing:.14em;color:var(--gold-2)}
@@ -1033,6 +1035,7 @@ html{overflow-x:clip}
     var tripTxt = " In <b>Vehicle and dates</b>, paste: <b>" + trip + "</b> <button type=\"button\" class=\"copy\" data-copy=\"" + trip.replace(/"/g, "") + "\">Copy</button>";
     var depLink = (car.id === "gle53") ? SQ_DEP : "";
     if (t.full){
+      rows.push("<div class=\"bk-paysteps\"><span>Step 1: Click <button type=\"button\" class=\"copy\" data-copy=\"" + t.total + "\">COPY AMOUNT (" + money(t.total) + ")</button></span><span>Step 2: Open Square &amp; paste amount.</span></div>");
       rows.push(payRow("Rental total", t.total, SQ_RENTAL, ref,
         "On Square's page, enter exactly <b>" + money(t.total) + "</b> <button type=\"button\" class=\"copy\" data-copy=\"" + t.total + "\">Copy amount</button> and your booking reference " + refTxt + "." + tripTxt));
     }
