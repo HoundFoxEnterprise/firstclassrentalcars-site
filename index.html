@@ -311,6 +311,16 @@ html{overflow-x:clip}
 .gallery img{width:100%;height:210px;object-fit:cover;display:block}
 .gallery figcaption{padding:10px 12px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 @media(max-width:900px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+/* ---- Rental terms (v3.12) ---- */
+.terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:1000px;margin:0 auto}
+.term{position:relative;border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:18px 20px 18px 62px}
+.term__num{position:absolute;left:18px;top:18px;font-weight:800;font-size:.85rem;letter-spacing:.06em;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.term h3{font-size:1rem;margin:0 0 6px;color:var(--white)}
+.term p{color:var(--muted);font-size:.95rem;line-height:1.6;margin:0}
+.terms__more{text-align:center;color:var(--muted);margin:22px auto 0;font-size:.92rem}
+.terms__more a,.section-lead a,.faq__a a{color:var(--gold-2)}
+@media(max-width:760px){.terms{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -586,7 +596,7 @@ html{overflow-x:clip}
         <span class="eyebrow">Reserve Online</span>
         <h2 class="section-title" id="book-title">Book your <span class="gold-text">first class</span> ride.</h2>
         <hr class="rule">
-        <p class="section-lead">Rates, deposit, and rental terms are set by the owner and confirmed at booking.</p>
+        <p class="section-lead">Rates, deposit, and <a href="#terms">rental terms</a> are set by the owner and confirmed at booking.</p>
       </header>
       <div class="bk reveal">
         <ol class="bk-progress" id="bkProgress">
@@ -628,6 +638,7 @@ html{overflow-x:clip}
             <div class="bk-field"><label for="bkExpiry">License expiry</label><input type="date" id="bkExpiry"></div>
           </div>
           <label class="bk-check" style="margin-top:18px"><input type="checkbox" id="bkAgree"><span>I agree to the rental terms. Minimum age 21 and a valid driver’s license are required; mileage terms are confirmed at booking.</span></label>
+          <p class="bk-note" style="margin-top:8px"><a href="#terms">Read the full rental terms</a></p>
           <div class="bk-nav"><button class="bk-btn" type="button" data-bk-back>Back</button><button class="bk-btn bk-btn--primary" type="button" data-bk-next>Continue to payment</button></div>
         </div>
 
@@ -720,13 +731,47 @@ html{overflow-x:clip}
         </div>
         <div class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">What do I need to rent?<span class="plus" aria-hidden="true">+</span></button>
-          <div class="faq__a"><p>A valid driver’s license and minimum age 21 are required. Mileage and delivery terms are confirmed at booking.</p></div>
+          <div class="faq__a"><p>A valid driver’s license, minimum age 21, and proof of full-coverage insurance that extends to the rental are required. Mileage and delivery terms are confirmed at booking.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">What is the cancellation policy?<span class="plus" aria-hidden="true">+</span></button>
+          <div class="faq__a"><p>Cancel 48 hours or more before pickup for a full refund of anything prepaid. Inside 48 hours, the first day’s rental is retained; on a deposit booking, the deposit is retained. A no-show is charged the full rental, and returning early does not refund unused days. See the full <a href="#terms">Rental Terms</a>.</p></div>
         </div>
         <div class="faq__item" hidden>
           <button class="faq__q" type="button" aria-expanded="false">How do I leave a review?<span class="plus" aria-hidden="true">+</span></button>
           <div class="faq__a"><p>Tap the “Review us on Google” button at the top of this page, or tap your NFC card again after your rental. Every review helps the next guest find us.</p></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- RENTAL TERMS -->
+  <section class="section" id="terms" aria-labelledby="terms-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <span class="eyebrow">Rental Terms</span>
+        <h2 class="section-title" id="terms-title">The fine print, <span class="gold-text">kept simple.</span></h2>
+        <hr class="rule">
+        <p class="section-lead">Our standard terms for every reservation. Anything specific to your rental is confirmed with you at booking.</p>
+      </header>
+      <div class="terms reveal">
+        <div class="term"><span class="term__num">01</span><h3>Who can rent</h3><p>Renters must be 21 or older, with a valid driver’s license and full-coverage auto insurance that extends to the rental vehicle.</p></div>
+        <div class="term"><span class="term__num">02</span><h3>Authorized drivers</h3><p>Only drivers named on the booking may drive the vehicle.</p></div>
+        <div class="term"><span class="term__num">03</span><h3>Cancellation</h3><p>Cancel 48 hours or more before pickup for a full refund of anything prepaid. Inside 48 hours, the first day’s rental is retained; on a deposit booking, the deposit is retained. A no-show is charged the full rental. Returning early does not refund unused days.</p></div>
+        <div class="term"><span class="term__num">04</span><h3>Security deposit (Mercedes-AMG GLE 53 Coupe)</h3><p>$800, charged at booking and refunded after the vehicle is returned and inspected, less any charges for damage, tickets, tolls, fuel or cleaning. If you cancel inside 48 hours of pickup, the deposit is retained.</p></div>
+        <div class="term"><span class="term__num">05</span><h3>Mileage</h3><p>Mileage is set for each rental at consultation. Ask when you book, and it is confirmed for your reservation.</p></div>
+        <div class="term"><span class="term__num">06</span><h3>Fuel</h3><p>Out full, back full. If it comes back under full, you pay the cost of the fuel at the prevailing local price per gallon, plus a $25 service fee on top.</p></div>
+        <div class="term"><span class="term__num">07</span><h3>Late return</h3><p>One hour of grace, then an additional day at the daily rate.</p></div>
+        <div class="term"><span class="term__num">08</span><h3>Tickets, tolls and towing</h3><p>These are the renter’s responsibility during the rental.</p></div>
+        <div class="term"><span class="term__num">09</span><h3>No smoking</h3><p>Smoking in any vehicle carries a $250 cleaning fee.</p></div>
+        <div class="term"><span class="term__num">10</span><h3>If your vehicle is unavailable</h3><p>We provide a comparable vehicle or a full refund.</p></div>
+        <div class="term"><span class="term__num">11</span><h3>Payment</h3><p>Include the booking reference shown at checkout with any payment made through this site.</p></div>
+        <div class="term"><span class="term__num">12</span><h3>Where you can drive</h3><p>The vehicle stays in North Carolina and its bordering states unless the owner approves a longer trip in writing before you leave.</p></div>
+        <div class="term"><span class="term__num">13</span><h3>Prohibited uses</h3><p>No track use, racing, off-roading or towing. No rideshare or other commercial use, no sub-leasing, and no driving under the influence of drugs or alcohol.</p></div>
+        <div class="term"><span class="term__num">14</span><h3>Impound and admin fees</h3><p>If the vehicle is impounded during your rental, you pay all impound, towing and storage costs. An administrative fee also applies to processing tickets, tolls and violations.</p></div>
+        <div class="term"><span class="term__num">15</span><h3>Wear beyond normal</h3><p>Tire damage from burnouts or stunts, rim rash, and interior burns or stains are not normal wear. They are charged at repair cost.</p></div>
+      </div>
+      <p class="terms__more">Questions about any term? Call or text <a href="tel:+19297042002">(929) 704-2002</a> or email <a href="mailto:book@firstclassrentalcars.net">book@firstclassrentalcars.net</a>.</p>
     </div>
   </section>
 
@@ -754,7 +799,8 @@ html{overflow-x:clip}
     Luxury &amp; Premium Car Rentals · Raleigh, North Carolina · Miami — Coming Soon<br>
     <a href="https://www.instagram.com/firstclassrentcars" target="_blank" rel="noopener noreferrer">@firstclassrentcars</a><br>
     <a href="tel:+19297042002">(929) 704-2002</a> · <a href="mailto:book@firstclassrentalcars.net">book@firstclassrentalcars.net</a><br>
-    5621 Atlantic Ave, Raleigh, NC 27615 · Open 24 hours, every day
+    5621 Atlantic Ave, Raleigh, NC 27615 · Open 24 hours, every day<br>
+    <a href="#terms">Rental Terms</a>
   </p>
   <p class="footer__small">
     Drive First Class. Arrive First Class.<br>
