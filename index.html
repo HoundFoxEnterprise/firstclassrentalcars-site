@@ -10,6 +10,19 @@
      A link left empty ("") keeps the preview behavior for that payment.
      Never put a Square access token or any secret key here. Links only.
      ================================================================================ -->
+<!-- ================================================================================
+     RESERVATION DELIVERY: where every confirmed reservation is sent.
+     The site is static, so it posts each reservation to a form-forwarding service that
+     emails it to the business. First reservation only: the service emails an activation
+     link to the address below, and someone must click it once. Until then, customers see
+     "not sent yet" and are routed to call or text (929) 704-2002. Nothing is ever lost silently.
+     ================================================================================ -->
+<script>
+window.FC_BOOKING = {
+  ENDPOINT: "https://formsubmit.co/ajax/book@firstclassrentalcars.net",
+  TIMEOUT_MS: 12000
+};
+</script>
 <script>
 window.FC_SQUARE = {
   // LINK 1: "First Class Rental Cars: Rental Payment" (Collect a payment, buyer sets the amount)
@@ -288,6 +301,11 @@ html{overflow-x:clip}
 .bk-paybox .bk-paysteps{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;margin:10px 0 0;padding:12px 14px;border:1px solid rgba(201,165,92,.5);border-radius:12px;background:rgba(201,165,92,.08);font-weight:800;font-size:.95rem;color:var(--white)}
 .bk-paybox .bk-paysteps .copy{font-weight:800;border-color:rgba(201,165,92,.7)}
 
+.bk-alert{border:1px solid #e0a43a;background:rgba(224,164,58,.10);border-radius:14px;padding:16px 18px;margin:0 0 18px}
+.bk-alert p{margin:0 0 12px;line-height:1.55}
+.bk-alert a{color:#f0c060}
+.bk-alert__actions{display:flex;flex-wrap:wrap;gap:10px}
+.bk-alert__actions .bk-btn{text-decoration:none;display:inline-flex;align-items:center}
 .bk-pass{border:1px dashed rgba(252,246,186,.5);border-radius:18px;padding:28px;background:linear-gradient(180deg,#151310,#0c0b09)}
 .bk-pass__ref{font-family:var(--font-d);font-size:1.7rem;letter-spacing:.14em;color:var(--gold-2)}
 .bk-pass__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 22px;margin-top:18px}
@@ -661,8 +679,12 @@ html{overflow-x:clip}
         </div>
 
         <div class="bk-panel" data-bk-panel="5">
-          <h3>You're booked.</h3>
-          <p class="bk-sub">Your confirmation details are provided at booking. Show this pass at pickup.</p>
+          <h3 id="bkStatusTitle">Sending your reservation…</h3>
+          <p class="bk-sub" id="bkStatusSub">One moment while we send your reservation to First Class Rental Cars.</p>
+          <div class="bk-alert" id="bkNotSent" role="alert" hidden>
+            <p><strong>Your reservation has not been sent yet.</strong> We have not received it. Call or text <a href="tel:+19297042002">(929) 704-2002</a> with your booking reference <strong id="bkNotSentRef">FC-0000-0000</strong> and we will lock it in.</p>
+            <div class="bk-alert__actions"><button class="bk-btn bk-btn--primary" type="button" id="bkRetry">Try sending again</button><a class="bk-btn" id="bkMailFallback" href="mailto:book@firstclassrentalcars.net">Email it to us instead</a></div>
+          </div>
           <div class="bk-pass">
             <div class="k" style="font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2)">Booking reference</div>
             <div class="bk-pass__ref" id="bkRef">FC-0000-0000</div>
@@ -1171,8 +1193,57 @@ html{overflow-x:clip}
     ["bkCard","bkCardName","bkCardExp","bkCardCvc"].forEach(function(id){ $(id).value = ""; });
     if (SQ_LIVE && SQ_DEP && t && car.id === "gle53" && t.dep) $("bkPassDue").textContent = t.full ? (money(t.total) + " rental + " + money(t.dep) + " refundable deposit") : (money(t.dep) + " (refundable deposit)");
     renderPayBox(ref, t, car);
+    sendReservation({
+      reference: ref,
+      vehicle: car.name + " — " + car.color,
+      pickup: $("bkPassPickup").textContent,
+      return: $("bkPassReturn").textContent,
+      renter_name: $("bkName").value.trim(),
+      phone: $("bkPhone").value.trim(),
+      email: $("bkEmail").value.trim(),
+      payment_option: payMode === "full" ? "Pay in full" : "Reserve with a deposit",
+      rental_days: t ? String(t.days) : "",
+      rental_total: t ? money(t.total) : "Set by owner",
+      deposit: !t ? "Set by owner" : (t.dep === null ? "Set by owner — confirmed at booking" : money(t.dep)),
+      due_today: $("bkPassDue").textContent,
+      balance_at_pickup: $("bkPassBal").textContent
+    });
     go(5);
   });
+
+  /* ---- Reservation delivery (v3.12.4): the business must actually receive it ---- */
+  var lastPayload = null;
+  function setStatus(state, ref){
+    var title = $("bkStatusTitle"), sub = $("bkStatusSub"), alert = $("bkNotSent");
+    if (state === "sending"){ title.textContent = "Sending your reservation…"; sub.textContent = "One moment while we send your reservation to First Class Rental Cars."; alert.hidden = true; }
+    else if (state === "sent"){ title.textContent = "Reservation received."; sub.textContent = "First Class Rental Cars has your reservation and will confirm it with you by text or email. Show this pass at pickup."; alert.hidden = true; }
+    else { title.textContent = "Not sent yet."; sub.textContent = "Your details are saved on this screen. Use one of the options below so we receive them."; $("bkNotSentRef").textContent = ref; alert.hidden = false; }
+  }
+  function mailBody(p){
+    var lines = ["Booking reference: " + p.reference, "Vehicle: " + p.vehicle, "Pickup: " + p.pickup, "Return: " + p.return,
+      "Name: " + p.renter_name, "Phone: " + p.phone, "Email: " + p.email, "Payment option: " + p.payment_option,
+      "Rental total: " + p.rental_total, "Deposit: " + p.deposit, "Due today: " + p.due_today, "Balance at pickup: " + p.balance_at_pickup];
+    return "mailto:book@firstclassrentalcars.net?subject=" + encodeURIComponent("Reservation " + p.reference) + "&body=" + encodeURIComponent(lines.join("\n"));
+  }
+  function sendReservation(p){
+    lastPayload = p;
+    $("bkMailFallback").setAttribute("href", mailBody(p));
+    var cfg = window.FC_BOOKING || {}, url = (cfg.ENDPOINT || "").trim();
+    setStatus("sending", p.reference);
+    $("bkConfirm").disabled = true;
+    if (!/^https:\/\//.test(url) || !window.fetch){ setStatus("failed", p.reference); $("bkConfirm").disabled = false; return; }
+    var body = {}; for (var k in p) body[k] = p[k];
+    body._subject = "New reservation " + p.reference + " — " + p.vehicle + " — " + p.pickup;
+    body._replyto = p.email; body._template = "table"; body._honey = "";
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function(){ if (ctl) ctl.abort(); }, cfg.TIMEOUT_MS || 12000);
+    fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(body), signal: ctl ? ctl.signal : undefined })
+      .then(function(r){ return r.ok ? r.json() : { success: false }; })
+      .then(function(d){ var ok = d && (d.success === true || d.success === "true"); setStatus(ok ? "sent" : "failed", p.reference); })
+      .catch(function(){ setStatus("failed", p.reference); })
+      .then(function(){ clearTimeout(timer); $("bkConfirm").disabled = false; });
+  }
+  $("bkRetry").addEventListener("click", function(){ if (lastPayload) sendReservation(lastPayload); });
 
   window.__fcSetBooking = function(i, s, e){
     if (typeof i === "number" && CONFIG.cars[i]){
